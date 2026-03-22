@@ -78,9 +78,7 @@ export default function Header() {
     { href: '/comfort', label: '산모 안심센터', icon: FiSmile },
     { href: '/government-support', label: '정부 지원', icon: FiInfo },
     ...(user ? [
-      { href: '/messages', label: '채팅', icon: FiMessageSquare },
       { href: '/baby-album', label: '아기앨범', icon: FiCamera },
-      { href: '/ai-consult', label: 'AI상담', icon: FiCpu },
     ] : []),
     ...(user?.role === 'admin' ? [{ href: '/admin', label: '관리 대시보드', icon: FiSettings }] : []),
   ];
