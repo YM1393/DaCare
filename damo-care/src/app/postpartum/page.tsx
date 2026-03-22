@@ -7,7 +7,7 @@ import CalendarModal from '@/components/CalendarModal';
 import { StoredUser, Helper, Favorite } from '@/types';
 
 const AREAS = ['전체 지역', '서울', '경기', '인천', '부산', '대구', '대전', '광주', '울산', '제주'];
-const HELPER_TYPES = ['전체', '산후도우미', '산후조리도우미', '신생아전문 도우미', '가사도우미', '청소도우미', '베이비시터', '요리전문 도우미', '산모케어 전문'];
+const HELPER_TYPES = ['전체', '산후도우미', '산후조리도우미', '신생아전문 도우미', '가사도우미', '청소도우미', '베이비시터', '요리전문 도우미', '산모케어 전문', '마사지사'];
 const TYPE_COLORS: Record<string, string> = {
   '산후도우미': 'bg-pink-100 text-pink-700',
   '산후조리도우미': 'bg-rose-100 text-rose-700',
@@ -17,6 +17,7 @@ const TYPE_COLORS: Record<string, string> = {
   '베이비시터': 'bg-purple-100 text-purple-700',
   '요리전문 도우미': 'bg-orange-100 text-orange-700',
   '산모케어 전문': 'bg-red-100 text-red-700',
+  '마사지사': 'bg-amber-100 text-amber-700',
 };
 const AREA_EMOJIS: Record<string, string> = {
   '서울': '🏙️', '경기': '🌿', '인천': '✈️', '부산': '🌊', '대구': '🌸',

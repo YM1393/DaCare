@@ -189,7 +189,7 @@ export default function MyPage() {
   const [saving, setSaving] = useState(false);
   const router = useRouter();
 
-  const HELPER_TYPES = ['산후도우미', '산후조리도우미', '신생아전문 도우미', '가사도우미', '청소도우미', '베이비시터', '요리전문 도우미', '산모케어 전문'];
+  const HELPER_TYPES = ['산후도우미', '산후조리도우미', '신생아전문 도우미', '가사도우미', '청소도우미', '베이비시터', '요리전문 도우미', '산모케어 전문', '마사지사'];
   const SPECIALTY_OPTIONS = ['신생아케어', '모유수유지도', '산모마사지', '요리/가사', '쌍둥이케어', '산후우울상담'];
 
   useEffect(() => {
