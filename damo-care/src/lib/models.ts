@@ -182,3 +182,16 @@ const emotionLogSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 export const EmotionLog = mongoose.models.EmotionLog || mongoose.model('EmotionLog', emotionLogSchema);
+
+const visitReportSchema = new mongoose.Schema({
+  reservationId: { type: String, required: true },
+  helperId: { type: String, required: true },
+  helperEmail: String,
+  helperName: String,
+  userEmail: String,
+  date: { type: String, required: true },
+  activities: [String],
+  notes: { type: String, default: '' },
+  createdAt: { type: Date, default: Date.now },
+});
+export const VisitReport = mongoose.models.VisitReport || mongoose.model('VisitReport', visitReportSchema);

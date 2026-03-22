@@ -1,14 +1,27 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FiUsers, FiCalendar, FiCheckCircle, FiTrendingUp, FiTrash2, FiMessageSquare, FiUserCheck, FiCheck, FiXCircle } from 'react-icons/fi';
+import { FiUsers, FiCalendar, FiCheckCircle, FiTrendingUp, FiTrash2, FiMessageSquare, FiUserCheck, FiCheck, FiXCircle, FiFileText } from 'react-icons/fi';
 import type { Helper, Reservation, Post } from '@/types';
+
+interface VisitReport {
+  _id: string;
+  reservationId: string;
+  helperName: string;
+  helperEmail: string;
+  userEmail: string;
+  date: string;
+  activities: string[];
+  notes: string;
+  createdAt: string;
+}
 
 export default function AdminPage() {
   const [stats, setStats] = useState({ totalUsers: 0, totalBookings: 0, pendingBookings: 0 });
   const [posts, setPosts] = useState<Post[]>([]);
   const [pendingHelpers, setPendingHelpers] = useState<Helper[]>([]);
   const [pendingReservations, setPendingReservations] = useState<Reservation[]>([]);
+  const [visitReports, setVisitReports] = useState<VisitReport[]>([]);
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
@@ -39,6 +52,11 @@ export default function AdminPage() {
 
       // 4. 예약 확정 대기 목록
       fetchPendingReservations();
+
+      // 5. 방문 기록 전체 조회
+      const reportRes = await fetch('/api/visit-report?admin=true');
+      const reportData = await reportRes.json();
+      setVisitReports(reportData);
     } catch (err) {
       console.error("데이터 로드 실패:", err);
     }
@@ -210,7 +228,37 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* 3. 게시글 관리 섹션 */}
+      {/* 3. 방문 기록 조회 섹션 */}
+      <div className="bg-white rounded-2xl shadow-sm p-8 mb-10 border border-green-100">
+        <h2 className="text-xl font-bold mb-6 flex items-center text-green-600">
+          <FiFileText className="mr-2" /> 도우미 방문 기록
+        </h2>
+        <div className="space-y-4">
+          {visitReports.length > 0 ? visitReports.map((report) => (
+            <div key={report._id} className="p-4 bg-green-50 rounded-xl border border-green-100">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <p className="font-bold text-gray-800">{report.helperName} 도우미</p>
+                  <p className="text-xs text-gray-500">{report.date} · {report.userEmail?.split('@')[0]} 산모님</p>
+                </div>
+                <span className="text-xs text-green-600 bg-green-100 px-2 py-0.5 rounded-full font-bold">
+                  {new Date(report.createdAt).toLocaleDateString('ko-KR')}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {report.activities.map(a => (
+                  <span key={a} className="text-xs bg-white border border-green-200 text-green-700 px-2 py-0.5 rounded-full">{a}</span>
+                ))}
+              </div>
+              {report.notes && <p className="text-xs text-gray-500 bg-white rounded-lg p-2 border border-gray-100">{report.notes}</p>}
+            </div>
+          )) : (
+            <p className="text-gray-400 text-center py-6">등록된 방문 기록이 없습니다.</p>
+          )}
+        </div>
+      </div>
+
+      {/* 4. 게시글 관리 섹션 */}
       <div className="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
         <h2 className="text-xl font-bold mb-6 flex items-center text-gray-800">
           <FiMessageSquare className="mr-2 text-pink-500" /> 커뮤니티 게시글 관리
